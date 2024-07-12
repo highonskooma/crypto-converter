@@ -1,15 +1,12 @@
 import axios from 'axios';
 
-export async function getAccessTokenFromServer(code, sdk) {
+export async function getAccessTokenFromServer(code) {
 	try {
 		const response = await axios.get(`https://localhost:5000/getAccessToken/${code}`);
-
-		console.log('token', response.data.access_token);
-		sdk.authorize(response.data.access_token);
 		return response;
 	} catch (error) {
-    console.error(error);
-  }
+		console.error(error);
+	}
 }
 
 export async function getTickers(accessToken) {
@@ -72,11 +69,11 @@ export async function getAccessToken(code) {
   }
 }
 
-// export async function getTickers(currency) {
-// 	try {
-// 		const response = await axios.get(`http://localhost:5000/api/ticker/${currency}`);
-// 		return response.data;
-// 	} catch (error) {
-// 		console.error('Error fetching USD ticker:', error);
-// 	}
-// }
+export async function getTickersFromServer(currency) {
+	try {
+		const response = await axios.get(`https://localhost:5000/ticker/${currency}`);
+		return response.data;
+	} catch (error) {
+		console.error('Error fetching USD ticker:', error);
+	}
+}
