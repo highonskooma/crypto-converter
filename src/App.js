@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-route
 import { useEffect, useState } from 'react';
 import { getAccessToken, getAccessTokenFromServer, getTickers } from '../src/services/Api.js';
 import CurrencyConverter from '../src/components/CurrencyConverter.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 	return (

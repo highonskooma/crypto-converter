@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import debounce from 'lodash.debounce';
 import { getTickersFromServer, getAccessToken } from '../services/Api.js';
 import SDK from '@uphold/uphold-sdk-javascript';
+import NavBar from './NavBar';
 
 function getConversionRate(fromCurrency, toCurrency, exchangeRates) {
 	if (fromCurrency === toCurrency) return 1;
@@ -113,9 +114,14 @@ const CurrencyConverter = () => {
 	return (
 		<div>
 			{!accessToken ? (
-				<button onClick={initiateOAuth}>Login with Uphold</button>
+				<>
+				<button onClick={initiateOAuth}>
+				<img src="/FrontendChallenge/assets/UpholdConnectButtons/SVG/connect_with_uphold.svg" />
+					</button>
+				</>
 			) : (
 					<>
+						<NavBar/>
 						<input type="number" placeholder={"0.00"} value={amount} onChange={handleAmountChange} />
 						<select value={fromCurrency} onChange={handleFromCurrencyChange}>
 							{currencies.map(currency => <option key={currency} value={currency}>{currency}</option>)}
