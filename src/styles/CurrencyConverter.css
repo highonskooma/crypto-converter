@@ -1,0 +1,33 @@
+.conversion-results {
+  display: grid;
+  gap: 10px 20px;
+  max-width: 400px; /* Adjust as needed */
+	margin: 0 auto;
+}
+
+.conversion-item {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  align-items: center;
+}
+
+.amount {
+	justify-self: start;
+  font-weight: bold;
+}
+
+.currency {
+	width:auto;
+  display: grid;
+	grid-template-columns: 50% 50%;
+  align-items: center;
+}
+
+.currency-icon {
+  
+  /* Add styles for your currency icons */
+}
+
+.currency-code {
+  font-weight: bold;
+}

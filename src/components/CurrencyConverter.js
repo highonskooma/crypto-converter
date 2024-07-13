@@ -1,26 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import FetchData from '../services/FetchData';
 import debounce from 'lodash.debounce';
+import InputWithDropdown from './InputWithDropdown';
+import '../styles/CurrencyConverter.css';
 
-const currencies = ['USD', 'EUR', 'GBP', 'BTC', 'ETH', 'BNB', 'ADA', 'XRP', 'DOGE', 'UPT'];
+const currencies = ['USD', 'EUR', 'GBP', 'BTC', 'ETH', 'BAT', 'BRL', 'XRP', 'VOX', 'XAU'];
 
-function getConversionRate(fromCurrency, toCurrency, ticker) {
-	if (fromCurrency === toCurrency) return 1;
-	if (!ticker || ticker.length === 0) return 0;
-	const pair = `${toCurrency}${fromCurrency}`;
-	const rate = ticker.find(rate => rate.pair === pair);
-	return rate ? 1 / parseFloat(rate.ask) : 0;
+function calculateConversionRates(fromCurrency, tickers) {
+	const rates = {};
+	currencies.forEach(toCurrency => {
+		if (fromCurrency === toCurrency) {
+			rates[toCurrency] = 1;
+		} else if (tickers && tickers.length > 0) {
+			const pair = `${toCurrency}${fromCurrency}`;
+			const rate = tickers.find(rate => rate.pair === pair);
+			rates[toCurrency] = rate ? 1 / parseFloat(rate.ask) : 0;
+		} else {
+			rates[toCurrency] = 0;
+		}
+	});
+	return rates;
 }
 
 const CurrencyConverter = () => {
 	const [amount, setAmount] = useState(0);
 	const { isLoading, currentCurrency, tickers, handleCurrencyChange } = FetchData();
 	const [debouncedAmount, setDebouncedAmount] = useState(0);
+	const [conversionRates, setConversionRates] = useState({});
 
 	useEffect(() => {
 		const debouncedSetAmount = debounce(setDebouncedAmount, 300);
 		debouncedSetAmount(amount);
 	}, [amount]);
+
+	useEffect(() => {
+		if (!isLoading && tickers) {
+			const newRates = calculateConversionRates(currentCurrency, tickers);
+			setConversionRates(newRates);
+		}
+	}, [isLoading, currentCurrency, tickers]);
 
 	const handleAmountChange = (e) => {
 		setAmount(e.target.value);
@@ -30,35 +48,32 @@ const CurrencyConverter = () => {
 		return <p>Loading...</p>;
 	}
 
-	console.log(tickers);
-
 	return (
-		<div>
-			<input
-				type="number"
-				placeholder="0.00"
-				value={amount}
-				onChange={handleAmountChange}
+		<div className="conversion-results">
+			<h1>Currency Converter</h1>
+			<p>Receive competitive and transparent pricing with no hidden spreads. See how we compare.</p>
+			<InputWithDropdown
+				handleAmountChange={handleAmountChange}
+				currencies={currencies}
+				handleCurrencyChange={handleCurrencyChange}
+				amount={amount}
+				currentCurrency={currentCurrency}
 			/>
-			<select
-				value={currentCurrency}
-				onChange={(e) => handleCurrencyChange(e.target.value)}
-			>
-				{currencies.map(currency => (
-					<option key={currency} value={currency}>{currency}</option>
-				))}
-			</select>
-			{(debouncedAmount !== 0 && debouncedAmount !== '') ? (
+			{(amount !== 0 && amount !== '') ? (
 				currencies.map(toCurrency => {
 					if (toCurrency === currentCurrency) return null;
-					const rate = getConversionRate(currentCurrency, toCurrency, tickers);
+					const rate = conversionRates[toCurrency];
 					const convertedAmount = debouncedAmount * rate;
 					return (
-						<p key={toCurrency}>
-							{
-								convertedAmount.toFixed(2)
-							} {toCurrency}
-						</p>
+						<div key={toCurrency} className="conversion-item">
+							<span className="amount">{convertedAmount.toFixed(2)}</span>
+							<span className="currency">
+								<span className="currency-icon">
+									<img width="20" height="20" src={`/icons/${toCurrency.toUpperCase()}.png`} alt={toCurrency} />
+								</span>
+								<span className="currency-code">{toCurrency}</span>
+							</span>
+						</div>
 					);
 				})
 			) : (

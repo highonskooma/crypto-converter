@@ -1,0 +1,20 @@
+.custom-navbar {
+  display:grid;
+	grid-template-columns: 33% 33% 33%;
+}
+
+.custom-navbar .navbar-nav {
+	width: 100%;
+  justify-self: start;
+}
+
+.custom-navbar .navbar-brand {
+	width: 100%;
+  justify-self: center;
+}
+
+.custom-navbar .login-button {
+	width: 100%; 
+	justify-self: end;
+	justify-content: end;
+}
