@@ -1,0 +1,101 @@
+
+.custom-footer {
+  align-self: end; 
+	display: grid;
+	grid-template-rows: auto auto;
+}
+
+.footer-content-wrapper{
+	display: grid;
+	grid-template-rows: auto auto;
+	row-gap: 50px;
+}
+.footer-content {
+  display: grid;
+	grid-template-columns: 20% 60% 20%;
+  justify-content: space-between;
+  width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.links-section {
+  display: grid;
+	grid-template-columns: 25% 25% 25% 25%;
+}
+
+.link-column {
+	display: grid;
+	grid-template-rows: 25% auto;
+	justify-content: start;
+}
+
+.link-column h4 {
+	justify-self: start;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+}
+
+.link-column ul {
+  list-style-type: none;
+  padding: 0;
+	display: grid;
+	justify-self: start;
+}
+
+.link-column li {
+	justify-self: start;
+  margin-bottom: 0.3rem;
+	font-size: 12px;
+}
+
+.language-appstore-section{
+	display: grid;
+	grid-template-rows: min-content auto;
+	row-gap: 20px;
+	justify-content: start;
+}
+
+.app-store-section {
+	display: grid;
+	grid-template-columns: auto auto;
+	column-gap: 50px;
+	justify-content: center;
+}
+
+.footer-bottom {
+	width: 1200px;
+	display: grid;
+	grid-template-columns:auto 30% ;
+  margin-top: 1rem;
+	justify-self: center;
+}
+
+.company-info {
+	display: grid;
+	grid-template-rows: min-content auto;
+	justify-content: center;
+	justify-self: center;
+	font-size: 10px;
+	color:gray;
+}
+
+.line2 {
+	display:grid;
+	grid-template-columns: auto auto;
+	column-gap: 20px;
+	justify-content: start;
+}
+
+.line2 ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.qr-code {
+	justify-self: center;
+}

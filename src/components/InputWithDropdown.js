@@ -7,7 +7,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 const InputWithDropdown = ({ handleAmountChange, currencies, handleCurrencyChange, amount, currentCurrency }) => {
   return (
     <>
-      <InputGroup className="mb-3">
+      <InputGroup className="mb-3 h-50">
         <Form.Control 
           value={amount} 
           aria-label="Text input with dropdown button" 

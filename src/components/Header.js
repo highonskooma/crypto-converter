@@ -1,12 +1,11 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
 import '../styles/Header.css';
 
 function Header() {
   return (
-    <Navbar bg="light" expand="lg" className="custom-navbar">
+    <Navbar expand="lg" className="custom-navbar">
       <Container>
         <Nav className='navbar-nav'>
           <Nav.Link href="#link1">Personal</Nav.Link>
@@ -22,8 +21,12 @@ function Header() {
             alt="Logo"
           />
         </Navbar.Brand>
-       <Nav className='login-button'> 
-          <Button variant="outline-primary">Login</Button>
+       <Nav className='login-button-wrapper'> 
+          <button className='login-button'>
+					<span>
+							Log In
+					</span>
+					</button>
         </Nav>
       </Container>
     </Navbar>

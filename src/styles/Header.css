@@ -13,8 +13,22 @@
   justify-self: center;
 }
 
-.custom-navbar .login-button {
+.custom-navbar .login-button-wrapper {
 	width: 100%; 
 	justify-self: end;
 	justify-content: end;
+}
+
+.login-button{
+	background-color: #49CC68;
+	border:none;
+	color:white;
+	font-size: 12px;
+	border-radius: 50px;
+	width: max-content;
+	padding: 5px 20px;
+}
+
+.login-button:hover{
+	background-color: #329C4A;
 }

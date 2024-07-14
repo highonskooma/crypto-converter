@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import FetchData from '../services/FetchData';
 import debounce from 'lodash.debounce';
 import InputWithDropdown from './InputWithDropdown';
@@ -13,7 +13,11 @@ function calculateConversionRates(fromCurrency, tickers) {
 			rates[toCurrency] = 1;
 		} else if (tickers && tickers.length > 0) {
 			const pair = `${toCurrency}${fromCurrency}`;
-			const rate = tickers.find(rate => rate.pair === pair);
+			const pairAlt = `${toCurrency}-${fromCurrency}`
+			var rate = tickers.find(rate => rate.pair === pair);
+			if (rate === undefined) {
+				rate = tickers.find(rate => rate.pair === pairAlt);
+			}
 			rates[toCurrency] = rate ? 1 / parseFloat(rate.ask) : 0;
 		} else {
 			rates[toCurrency] = 0;
@@ -50,7 +54,7 @@ const CurrencyConverter = () => {
 
 	return (
 		<div className="conversion-results">
-			<h1>Currency Converter</h1>
+			<h3 className='conversion-title'>Currency Converter</h3>
 			<p>Receive competitive and transparent pricing with no hidden spreads. See how we compare.</p>
 			<InputWithDropdown
 				handleAmountChange={handleAmountChange}
@@ -59,6 +63,7 @@ const CurrencyConverter = () => {
 				amount={amount}
 				currentCurrency={currentCurrency}
 			/>
+			<div>
 			{(amount !== 0 && amount !== '') ? (
 				currencies.map(toCurrency => {
 					if (toCurrency === currentCurrency) return null;
@@ -79,6 +84,7 @@ const CurrencyConverter = () => {
 			) : (
 					<p>Enter an amount to check the rates</p>
 				)}
+				</div>
 		</div>
 	);
 };
